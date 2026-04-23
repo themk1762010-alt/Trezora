@@ -1,13 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [search, setSearch] = useState("");
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const products = [
 
@@ -188,14 +185,14 @@ export default function Home() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const card: any = {
+  const card: React.CSSProperties = {
     background: "#1c1c1c",
     padding: "15px",
     borderRadius: "12px",
     width: "220px",
   };
 
-  const imgStyle: any = {
+  const imgStyle: React.CSSProperties = {
     width: "100%",
     height: "150px",
     objectFit: "contain",
@@ -204,7 +201,7 @@ export default function Home() {
     marginBottom: "10px",
   };
 
-  const dealBtn: any = {
+  const dealBtn: React.CSSProperties = {
     marginTop: "10px",
     width: "100%",
     background: "white",
@@ -221,7 +218,7 @@ export default function Home() {
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
         {filtered.filter(p => p.section === key).map((p, i) => (
           <div key={i} style={card}>
-            <img src={p.img} style={imgStyle} />
+            <Image src={p.img} alt={p.name} width={220} height={150} style={imgStyle} />
             <h4>{p.name}</h4>
             <p>{p.price}</p>
             <p>⭐ {p.rating} ({p.reviews})</p>
@@ -240,6 +237,19 @@ export default function Home() {
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <h1>TREZORA</h1>
         <p>Only Deals Worth It.</p>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "10px",
+            width: "300px",
+            borderRadius: "5px",
+            border: "none",
+            marginTop: "10px"
+          }}
+        />
       </div>
 
       <div id="tech" style={{ padding: "20px" }}>
